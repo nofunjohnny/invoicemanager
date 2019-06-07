@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Invoices from '../invoices';
+import Invoices from './invoices';
 
 export default function App() {
   return (
