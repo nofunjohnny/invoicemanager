@@ -1,1 +1,1 @@
-export * from './persons';
+export * from './invoices';

@@ -5,46 +5,46 @@ const initialState = {
   list: []
 };
 
-const personsReducer = reduceReducers(initialState,
-  loadReducer(t.LOAD_PERSONS, (state, action) => ({
+const invoicesReducer = reduceReducers(initialState,
+  loadReducer(t.LOAD_INVOICES, (state, action) => ({
     ...state,
     list: action.result
   })),
 
   reducersMap({
-    [t.CREATE_PERSON_SUCCESS]: (state, action) => addPerson(state, action.result),
-    [t.UPDATE_PERSON_SUCCESS]: (state, action) => updatePerson(state, action.result),
-    [t.REMOVE_PERSON_SUCCESS]: (state, action) => deletePerson(state, action.personId),
+    [t.CREATE_INVOICE_SUCCESS]: (state, action) => addInvoice(state, action.result),
+    [t.UPDATE_INVOICE_SUCCESS]: (state, action) => updateInvoice(state, action.result),
+    [t.REMOVE_INVOICE_SUCCESS]: (state, action) => deleteInvoice(state, action.invoiceId),
 
-    [t.ON_PERSON_CREATE]: (state, action) => addPerson(state, action.person),
-    [t.ON_PERSON_UPDATE]: (state, action) => updatePerson(state, action.person),
-    [t.ON_PERSON_REMOVE]: (state, action) => deletePerson(state, action.person.objectId)
+    [t.ON_INVOICE_CREATE]: (state, action) => addInvoice(state, action.invoice),
+    [t.ON_INVOICE_UPDATE]: (state, action) => updateInvoice(state, action.invoice),
+    [t.ON_INVOICE_REMOVE]: (state, action) => deleteInvoice(state, action.invoice.objectId)
   })
 );
 
-function addPerson(state, person) {
-  if (state.list.find(p => p.objectId === person.objectId)) {
+function addInvoice(state, invoice) {
+  if (state.list.find(p => p.objectId === invoice.objectId)) {
     return state
   }
 
   return {
     ...state,
-    list: state.list.concat(person)
+    list: state.list.concat(invoice)
   }
 }
 
-function updatePerson(state, person) {
+function updateInvoice(state, invoice) {
   return {
     ...state,
-    list: state.list.map(p => p.objectId === person.objectId ? person : p)
+    list: state.list.map(p => p.objectId === invoice.objectId ? invoice : p)
   }
 }
 
-function deletePerson(state, personId) {
+function deleteInvoice(state, invoiceId) {
   return {
     ...state,
-    list: state.list.filter(person => person.objectId !== personId)
+    list: state.list.filter(invoice => invoice.objectId !== invoiceId)
   }
 }
 
-export default personsReducer
+export default invoicesReducer

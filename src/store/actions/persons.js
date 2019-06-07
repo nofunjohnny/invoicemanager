@@ -2,38 +2,38 @@ import Backendless from 'backendless'
 
 import t from '../action-types';
 
-export const loadPersons = () => ({
-  types  : [t.LOAD_PERSONS, t.LOAD_PERSONS_SUCCESS, t.LOAD_PERSONS_FAIL],
-  apiCall: () => Backendless.Data.of('Person').find(),
+export const loadInvoices = () => ({
+  types  : [t.LOAD_INVOICES, t.LOAD_INVOICES_SUCCESS, t.LOAD_INVOICES_FAIL],
+  apiCall: () => Backendless.Data.of('Invoice').find(),
 });
 
-export const createPerson = person => ({
-  types  : [null, t.CREATE_PERSON_SUCCESS, null],
-  apiCall: () => Backendless.Data.of('Person').save(person),
+export const createInvoice = invoice => ({
+  types  : [null, t.CREATE_INVOICE_SUCCESS, null],
+  apiCall: () => Backendless.Data.of('Invoice').save(invoice),
 });
 
-export const updatePerson = person => ({
-  types  : [null, t.UPDATE_PERSON_SUCCESS, null],
-  apiCall: () => Backendless.Data.of('Person').save(person),
+export const updateInvoice = invoice => ({
+  types  : [null, t.UPDATE_INVOICE_SUCCESS, null],
+  apiCall: () => Backendless.Data.of('Invoice').save(invoice),
 });
 
-export const removePerson = personId => ({
-  personId,
-  types  : [null, t.REMOVE_PERSON_SUCCESS, null],
-  apiCall: () => Backendless.Data.of('Person').remove(personId),
+export const removeInvoice = invoiceId => ({
+  invoiceId,
+  types  : [null, t.REMOVE_INVOICE_SUCCESS, null],
+  apiCall: () => Backendless.Data.of('Invoice').remove(invoiceId),
 });
 
-export const onPersonCreate = person => ({
-  person,
-  type: t.ON_PERSON_CREATE,
+export const onInvoiceCreate = invoice => ({
+  invoice,
+  type: t.ON_INVOICE_CREATE,
 });
 
-export const onPersonUpdate = person => ({
-  person,
-  type: t.ON_PERSON_UPDATE,
+export const onInvoiceUpdate = invoice => ({
+  invoice,
+  type: t.ON_INVOICE_UPDATE,
 });
 
-export const onPersonRemove = person => ({
-  person,
-  type: t.ON_PERSON_REMOVE,
+export const onInvoiceRemove = invoice => ({
+  invoice,
+  type: t.ON_INVOICE_REMOVE,
 });

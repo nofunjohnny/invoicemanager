@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
-import persons from './persons'
+import invoices from './invoices'
 
 const rootReducer = combineReducers({
-  persons
+  invoices
 });
 
 export default rootReducer;
 
-export const getPersons = state => state.persons;
+export const getInvoices = state => state.invoices;

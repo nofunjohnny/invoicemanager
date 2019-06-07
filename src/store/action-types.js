@@ -1,15 +1,15 @@
 export default mirrorKeys({
-  LOAD_PERSONS        : null,
-  LOAD_PERSONS_SUCCESS: null,
-  LOAD_PERSONS_FAIL   : null,
+  LOAD_INVOICES        : null,
+  LOAD_INVOICES_SUCCESS: null,
+  LOAD_INVOICES_FAIL   : null,
 
-  CREATE_PERSON_SUCCESS: null,
-  UPDATE_PERSON_SUCCESS: null,
-  REMOVE_PERSON_SUCCESS: null,
+  CREATE_INVOICE_SUCCESS: null,
+  UPDATE_INVOICE_SUCCESS: null,
+  REMOVE_INVOICE_SUCCESS: null,
 
-  ON_PERSON_CREATE: null,
-  ON_PERSON_UPDATE: null,
-  ON_PERSON_REMOVE: null,
+  ON_INVOICE_CREATE: null,
+  ON_INVOICE_UPDATE: null,
+  ON_INVOICE_REMOVE: null,
 });
 
 function mirrorKeys(obj) {

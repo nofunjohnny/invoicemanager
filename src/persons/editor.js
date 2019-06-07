@@ -4,32 +4,32 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
-import { createPerson, updatePerson } from '../store';
+import { createInvoice, updateInvoice } from '../store';
 
-class PersonEditor extends Component {
+class InvoiceEditor extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      person     : props.person || {},
+      invoice     : props.invoice || {},
       saving     : false,
       serverError: null,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const prevPerson = this.props.person || {};
-    const nextPerson = nextProps.person || {};
+    const prevInvoice = this.props.invoice || {};
+    const nextInvoice = nextProps.invoice || {};
 
-    if (prevPerson.objectId !== nextPerson.objectId) {
-      this.setState({ person: nextPerson })
+    if (prevInvoice.objectId !== nextInvoice.objectId) {
+      this.setState({ invoice: nextInvoice })
     }
   }
 
   close = () => {
     this.setState({
-      person     : {},
+      invoice     : {},
       saving     : false,
       serverError: null
     });
@@ -37,42 +37,42 @@ class PersonEditor extends Component {
     this.props.onHide()
   };
 
-  preparePerson() {
-    const { person } = this.state;
+  prepareInvoice() {
+    const { invoice } = this.state;
 
     return {
-      ...person,
-      name   : (person.name || '').trim() || null,
-      address: (person.address || '').trim() || null,
+      ...invoice,
+      name   : (invoice.name || '').trim() || null,
+      address: (invoice.address || '').trim() || null,
     }
   }
 
   save = () => {
-    const person = this.preparePerson();
+    const invoice = this.prepareInvoice();
 
-    const action = this.props.person
-      ? this.props.updatePerson
-      : this.props.createPerson;
+    const action = this.props.invoice
+      ? this.props.updateInvoice
+      : this.props.createInvoice;
 
-    action(person)
+    action(invoice)
       .then(() => this.close())
       .catch(e => this.setState({ serverError: e.message }));
   };
 
-  onNameChange = e => this.setState({ person: { ...this.state.person, name: e.target.value } });
-  onAddressChange = e => this.setState({ person: { ...this.state.person, address: e.target.value } });
+  onNameChange = e => this.setState({ invoice: { ...this.state.invoice, name: e.target.value } });
+  onAddressChange = e => this.setState({ invoice: { ...this.state.invoice, address: e.target.value } });
 
   render() {
     const { show } = this.props;
-    const { person, serverError, saving } = this.state;
+    const { invoice, serverError, saving } = this.state;
 
-    const isNew = !this.props.person;
+    const isNew = !this.props.invoice;
 
     return (
       <Modal show={show} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {isNew ? 'Add' : 'Edit'} Person
+            {isNew ? 'Add' : 'Edit'} Invoice
           </Modal.Title>
         </Modal.Header>
 
@@ -83,7 +83,7 @@ class PersonEditor extends Component {
               <input
                 className="form-control"
                 placeholder="Input name"
-                value={person.name || ''}
+                value={invoice.name || ''}
                 onChange={this.onNameChange}
               />
             </div>
@@ -93,7 +93,7 @@ class PersonEditor extends Component {
               <input
                 className="form-control"
                 placeholder="Input address"
-                value={person.address || ''}
+                value={invoice.address || ''}
                 onChange={this.onAddressChange}
               />
             </div>
@@ -119,4 +119,4 @@ class PersonEditor extends Component {
   }
 }
 
-export default connect(null, { createPerson, updatePerson })(PersonEditor);
+export default connect(null, { createInvoice, updateInvoice })(InvoiceEditor);

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-import { removePerson } from '../store';
+import { removeInvoice } from '../store';
 
-class DeletePersonConfirmation extends Component {
+class DeleteInvoiceConfirmation extends Component {
 
   state = {
     removing: false,
@@ -20,29 +20,29 @@ class DeletePersonConfirmation extends Component {
   };
 
   confirm = () => {
-    const { person } = this.props;
+    const { invoice } = this.props;
 
     this.setState({ removing: true });
 
-    this.props.removePerson(person.objectId)
+    this.props.removeInvoice(invoice.objectId)
       .then(() => this.close())
   };
 
   render() {
-    const { person, show } = this.props;
+    const { invoice, show } = this.props;
     const { removing } = this.state;
 
     return (
       <Modal show={show} onHide={this.close}>
         <Modal.Header className="bg-danger text-white" closeButton>
           <Modal.Title>
-            Delete Person Confirmation
+            Delete Invoice Confirmation
           </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <p>
-            Are you seriously want to delete "<b>{person && person.name}</b>"
+            Are you seriously want to delete "<b>{invoice && invoice.name}</b>"
           </p>
         </Modal.Body>
 
@@ -55,4 +55,4 @@ class DeletePersonConfirmation extends Component {
   }
 }
 
-export default connect(null, { removePerson })(DeletePersonConfirmation);
+export default connect(null, { removeInvoice })(DeleteInvoiceConfirmation);

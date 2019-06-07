@@ -4,23 +4,23 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Backendless from 'backendless';
 
-import { loadPersons, getPersons, onPersonCreate, onPersonUpdate, onPersonRemove } from '../store';
+import { loadInvoices, getInvoices, onInvoiceCreate, onInvoiceUpdate, onInvoiceRemove } from '../store';
 
 import Editor from './editor';
 import DeleteConfirmation from './delete-confirmation';
 
 const mapStateToProps = state => {
-  const { loading, loaded, error, list: persons } = getPersons(state);
+  const { loading, loaded, error, list: invoices } = getInvoices(state);
 
   return {
     loading,
     loaded,
     error,
-    persons
+    invoices
   }
 };
 
-class Persons extends Component {
+class Invoices extends Component {
 
   state = {
     showEditor : false,
@@ -30,50 +30,50 @@ class Persons extends Component {
     deleteConfirmationProps: null,
   };
 
-  showEditor = person => this.setState({ showEditor: true, editorProps: { person } });
+  showEditor = invoice => this.setState({ showEditor: true, editorProps: { invoice } });
   hideEditor = () => this.setState({ showEditor: false, editorProps: null });
 
-  showDeleteConfirmation = person => this.setState({ showDeleteConfirmation : true, deleteConfirmationProps: { person } });
+  showDeleteConfirmation = invoice => this.setState({ showDeleteConfirmation : true, deleteConfirmationProps: { invoice } });
   hideDeleteConfirmation = () => this.setState({ showDeleteConfirmation: false, deleteConfirmationProps: null });
 
   componentWillMount(){
-    this.props.loadPersons();
+    this.props.loadInvoices();
 
-    this.personRT = Backendless.Data.of('Person').rt();
+    this.invoiceRT = Backendless.Data.of('Invoice').rt();
 
-    this.personRT.addCreateListener(this.props.onPersonCreate);
-    this.personRT.addUpdateListener(this.props.onPersonUpdate);
-    this.personRT.addDeleteListener(this.props.onPersonRemove);
+    this.invoiceRT.addCreateListener(this.props.onInvoiceCreate);
+    this.invoiceRT.addUpdateListener(this.props.onInvoiceUpdate);
+    this.invoiceRT.addDeleteListener(this.props.onInvoiceRemove);
   }
 
   componentWillUnmount(){
-    this.personRT.removeCreateListener(this.props.onPersonCreate);
-    this.personRT.removeUpdateListener(this.props.onPersonUpdate);
-    this.personRT.removeDeleteListener(this.props.onPersonRemove);
+    this.invoiceRT.removeCreateListener(this.props.onInvoiceCreate);
+    this.invoiceRT.removeUpdateListener(this.props.onInvoiceUpdate);
+    this.invoiceRT.removeDeleteListener(this.props.onInvoiceRemove);
   }
 
   onAddClick = () => this.showEditor(null);
-  onEditClick = person => this.showEditor(person);
-  onDeleteClick = person => this.showDeleteConfirmation(person);
+  onEditClick = invoice => this.showEditor(invoice);
+  onDeleteClick = invoice => this.showDeleteConfirmation(invoice);
 
-  renderPerson = person => {
+  renderInvoice = invoice => {
     return (
-      <li key={person.objectId} className="list-group-item d-flex justify-content-between align-items-center">
+      <li key={invoice.objectId} className="list-group-item d-flex justify-content-between align-items-center">
         <div>
-          <div>{person.name}</div>
-          <div className="text-muted small">{person.address}</div>
+          <div>{invoice.name}</div>
+          <div className="text-muted small">{invoice.address}</div>
         </div>
 
         <ButtonGroup>
-          <Button size="sm" variant="outline-primary" onClick={() => this.onEditClick(person)}>Edit</Button>
-          <Button size="sm" variant="outline-danger" onClick={() => this.onDeleteClick(person)}>Delete</Button>
+          <Button size="sm" variant="outline-primary" onClick={() => this.onEditClick(invoice)}>Edit</Button>
+          <Button size="sm" variant="outline-danger" onClick={() => this.onDeleteClick(invoice)}>Delete</Button>
         </ButtonGroup>
       </li>
     );
   };
 
   render() {
-    const { loading, error, persons } = this.props;
+    const { loading, error, invoices } = this.props;
     const { showEditor, editorProps, showDeleteConfirmation, deleteConfirmationProps } = this.state;
 
     if (loading) {
@@ -100,7 +100,7 @@ class Persons extends Component {
         </div>
 
         <ul className="list-group">
-          {persons.map(this.renderPerson)}
+          {invoices.map(this.renderInvoice)}
         </ul>
 
         <DeleteConfirmation
@@ -113,4 +113,4 @@ class Persons extends Component {
   }
 }
 
-export default connect(mapStateToProps, { loadPersons, onPersonCreate, onPersonUpdate, onPersonRemove })(Persons);
+export default connect(mapStateToProps, { loadInvoices, onInvoiceCreate, onInvoiceUpdate, onInvoiceRemove })(Invoices);

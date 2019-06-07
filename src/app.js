@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Persons from './persons';
+import Invoices from './invoices';
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
         </h3>
       </div>
 
-      <Persons/>
+      <Invoices/>
     </div>
   );
 }
