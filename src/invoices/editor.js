@@ -42,8 +42,11 @@ class InvoiceEditor extends Component {
 
     return {
       ...invoice,
-      name   : (invoice.name || '').trim() || null,
-      address: (invoice.address || '').trim() || null,
+      customer: (invoice.customer || '').trim() || null,
+      account: (invoice.account || '').trim() || null,
+      quantity: (invoice.quantity || '').trim() || null,
+      product: (invoice.product || '').trim() || null,
+      salestotal: (invoice.salestotal || '').trim() || null,
     }
   }
 
@@ -59,8 +62,11 @@ class InvoiceEditor extends Component {
       .catch(e => this.setState({ serverError: e.message }));
   };
 
-  onNameChange = e => this.setState({ invoice: { ...this.state.invoice, name: e.target.value } });
-  onAddressChange = e => this.setState({ invoice: { ...this.state.invoice, address: e.target.value } });
+  onCustomerChange = e => this.setState({ invoice: { ...this.state.invoice, customer: e.target.value } });
+  onAccountChange = e => this.setState({ invoice: { ...this.state.invoice, account: e.target.value } });
+  onQuantityChange = e => this.setState({ invoice: { ...this.state.invoice, quantity: e.target.value } });
+  onProductChange = e => this.setState({ invoice: { ...this.state.invoice, product: e.target.value } });
+  onaSalestotalChange = e => this.setState({ invoice: { ...this.state.invoice, salestotal: e.target.value } });
 
   render() {
     const { show } = this.props;
@@ -79,22 +85,52 @@ class InvoiceEditor extends Component {
         <Modal.Body>
           <form>
             <div className="form-group">
-              <label>Name:</label>
+              <label>Customer:</label>
               <input
                 className="form-control"
-                placeholder="Input name"
-                value={invoice.name || ''}
-                onChange={this.onNameChange}
+                placeholder="Add Customer Name"
+                value={invoice.customer || ''}
+                onChange={this.onCustomerChange}
               />
             </div>
 
             <div className="form-group">
-              <label>Address:</label>
+              <label>Account:</label>
               <input
                 className="form-control"
-                placeholder="Input address"
-                value={invoice.address || ''}
-                onChange={this.onAddressChange}
+                placeholder="JZ or BZ"
+                value={invoice.account || ''}
+                onChange={this.onAccountChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Quantity:</label>
+              <input
+                className="form-control"
+                placeholder="Add Quantity"
+                value={invoice.quantity || ''}
+                onChange={this.onQuantityChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Product:</label>
+              <input
+                className="form-control"
+                placeholder="Add Product"
+                value={invoice.product || ''}
+                onChange={this.onProductChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Sales Total:</label>
+              <input
+                className="form-control"
+                placeholder="Sales Total"
+                value={invoice.salestotal || ''}
+                onChange={this.onaSalestotalChange}
               />
             </div>
 
